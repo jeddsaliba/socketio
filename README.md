@@ -26,12 +26,12 @@ cp .env.example .env
     * SSL_CERT=/home/ssl/certs/<YOUR_SSL_CERTIFICATE>.crt
     * SSL_PORT=3000
 
-5. You can now host your Socket.IO server by running `node app` or `node app.js`
+5. You can now host your Socket.IO server by running:
 
 ~~~
 node app
 ~~~
-
+or
 ~~~
 node app.js
 ~~~
