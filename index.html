@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Socket.IO chat</title>
+    </head>
+    <body>
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+        <script>
+        $(function () {
+            let url = "https://socket.granite.leentechdev.com:3031";
+            
+            let socket = io(url);
+            
+            socket.on('connection');
+            socket.emit('join', 'notifications-2');
+            let notifications = [
+                {
+                    "sender_user_id": 2,
+                    "reference_id": 6,
+                    "type": "new_upcoming_projects",
+                    "receiver_user_id": 2,
+                    "message": "You have a new project invitation.",
+                    "project_date_from": null,
+                    "project_date_to": null,
+                    "project_status_id": null,
+                    "pre_message": "You have a new project invitation.",
+                    "post_message": null,
+                    "updated_at": "2022-02-09T11:19:12.000000Z",
+                    "created_at": "2022-02-09T11:19:12.000000Z",
+                    "id": 4,
+                    "display_message": [
+                        {
+                            "message": "You have a new project invitation.",
+                            "color": "474747",
+                            "weight": 400,
+                            "bold": false,
+                            "background": "",
+                            "badge": false,
+                            "date": false
+                        },
+                        {
+                            "message": "00006-20220209-00002",
+                            "color": "2040EB",
+                            "weight": 800,
+                            "bold": true,
+                            "background": "",
+                            "badge": false,
+                            "date": false
+                        }
+                    ],
+                    "sender": {
+                        "id": 2,
+                        "first_name": "Jim",
+                        "last_name": "Levi",
+                        "profile_photo_url": "http://127.0.0.1:8000/storage/images/placeholder/placeholder-default.jpg",
+                        "location": []
+                    }
+                }
+            ];
+            socket.emit('notifications', {'message': notifications});
+        });
+        </script>
+    </body>
+</html>
