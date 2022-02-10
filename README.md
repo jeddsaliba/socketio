@@ -31,7 +31,7 @@ cp .env.example .env
 ~~~
 node app
 ~~~
-or
+    or
 ~~~
 node app.js
 ~~~
