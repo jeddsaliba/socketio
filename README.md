@@ -28,6 +28,14 @@ cp .env.example .env
 
 5. You can now host your Socket.IO server by running `node app` or `node app.js`
 
+~~~
+node app
+~~~
+
+~~~
+node app.js
+~~~
+
 ### Note
 Once you have started to host the Socket.IO server via Terminal, it will automatically close when you exit your browser or close the tab where the terminal is running.
 
