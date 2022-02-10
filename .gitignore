@@ -4,3 +4,5 @@
 .env
 .htaccess
 error_log
+index.html
+debug.log
