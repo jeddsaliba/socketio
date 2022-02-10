@@ -6,19 +6,25 @@ Here are a few steps in order to integrate a working Socket.IO server on your cP
 
 1. Clone this repository to your project folder by using yout Terminal
 2. In your Terminal, run `npm install` inside the folder (This will install all of the required dependencies)
+~~~
+npm install
+~~~
 3. Run `cp .env.example .env` in order to create a new .env file
+~~~
+cp .env.example .env
+~~~
 4. In your .env file, add the following:
     
-    APP_URL=
-    SSL_KEY=
-    SSL_CERT=
-    SSL_PORT=
+    * APP_URL=
+    * SSL_KEY=
+    * SSL_CERT=
+    * SSL_PORT=
 
     Example:
-    APP_URL=https://my-socket-io-website.com
-    SSL_KEY=/home/ssl/keys/<YOUR_SSL_KEY>.key
-    SSL_CERT=/home/ssl/certs/<YOUR_SSL_CERTIFICATE>.crt
-    SSL_PORT=3000
+    * APP_URL=https://my-socket-io-website.com
+    * SSL_KEY=/home/ssl/keys/<YOUR_SSL_KEY>.key
+    * SSL_CERT=/home/ssl/certs/<YOUR_SSL_CERTIFICATE>.crt
+    * SSL_PORT=3000
 
 5. You can now host your Socket.IO server by running `node app` or `node app.js`
 
