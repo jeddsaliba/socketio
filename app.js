@@ -23,9 +23,6 @@ console.log = function(d) { //
     log_stdout.write(util.format(d) + '\n');
 };
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-});
 if (ssl_key && ssl_cert) {
     server = require('https').createServer(options, app);
     io = require('socket.io')(server, options);
@@ -33,9 +30,10 @@ if (ssl_key && ssl_cert) {
     server = require('http').createServer(app);
     io = require('socket.io')(server);
 }
+
 /* WHEN CONNECTION IS SUCCESSFUL */
 io.on('connection', (socket) => {
-    console.log('Socket Connected Successfully!', socket.id);
+    console.log('Socket Connected Successfully!' + socket.id);
     /* JOIN TO A ROOM/CHANNEL/GROUP */
     socket.on('join', (room) => {
         console.log(socket.id + " subscribed to " + room);
@@ -67,10 +65,10 @@ io.on('connection', (socket) => {
     });
     /* WHEN DISCONNECTED */
     socket.on('disconnect', () => {
-        console.log('Socket Disconnected', socket.id);
+        console.log('Socket Disconnected'+ socket.id);
     });
 });
 
 server.listen(process.env.SSL_PORT, () => {
-  console.log('listening on *:'+process.env.SSL_PORT);
+    console.log('listening on *:'+process.env.SSL_PORT);
 });
