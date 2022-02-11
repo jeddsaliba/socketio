@@ -47,7 +47,6 @@ io.on('connection', (socket) => {
     /* ACTION LOGS LISTENER */
     socket.on("action-logs", (message) => {
         var payload = message['message'];
-        console.log(payload);
         /* FORWARD THE MESSAGE TO ROOM/CHANNEL/GROUP: ACTION-LOGS-<PROJECTID> */
         /* ONLY USERS JOINED IN THE ROOM/CHANNEL/GROUP OF ACTION-LOGS-<PROJECTID> CAN RECEIVE THE NOTIFICATION */
         socket.to('action-logs-'+payload['project_id']).emit('action-logs-'+payload['project_id'], message);
@@ -56,7 +55,6 @@ io.on('connection', (socket) => {
     socket.on("notifications", (message) => {
         var payload = message['message'];
         payload.forEach((data) => {
-            console.log(data);
 	        socket.to('notifications-'+data['receiver_user_id']).emit('notifications-'+data['receiver_user_id'], data);
         });
         /* FORWARD THE MESSAGE TO ROOM/CHANNEL/GROUP: NOTIFICATIONS-<RECEIVERUSERID> */
