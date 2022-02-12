@@ -19,8 +19,9 @@ var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
 var log_stdout = process.stdout;
 
 console.log = function(d) { //
-    log_file.write(util.format(d) + '\n');
-    log_stdout.write(util.format(d) + '\n');
+    var date = new Date().toLocaleString();
+    log_file.write(date + ' ' + util.format(d) + '\n');
+    log_stdout.write(date + ' ' + util.format(d) + '\n');
 };
 
 if (ssl_key && ssl_cert) {
@@ -33,15 +34,15 @@ if (ssl_key && ssl_cert) {
 
 /* WHEN CONNECTION IS SUCCESSFUL */
 io.on('connection', (socket) => {
-    console.log('Socket Connected Successfully!' + socket.id);
+    console.log(socket.id + ' Socket Connected Successfully!');
     /* JOIN TO A ROOM/CHANNEL/GROUP */
     socket.on('join', (room) => {
-        console.log(socket.id + " subscribed to " + room);
+        console.log(socket.id + " joined " + room);
         socket.join(room);
     });
     /* LEAVE FROM A ROOM/CHANNEL/GROUP */
     socket.on('leave', (room) => {
-        console.log(socket.id + " unsubscribed to " + room);
+        console.log(socket.id + " left " + room);
         socket.leave(room);
     });
     /* ACTION LOGS LISTENER */
@@ -63,7 +64,7 @@ io.on('connection', (socket) => {
     });
     /* WHEN DISCONNECTED */
     socket.on('disconnect', () => {
-        console.log('Socket Disconnected'+ socket.id);
+        console.log(socket.id + ' Socket Disconnected');
     });
 });
 
