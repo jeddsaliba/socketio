@@ -50,7 +50,7 @@ io.on('connection', (socket) => {
         var payload = message['message'];
         /* FORWARD THE MESSAGE TO ROOM/CHANNEL/GROUP: ACTION-LOGS-<PROJECTID> */
         /* ONLY USERS JOINED IN THE ROOM/CHANNEL/GROUP OF ACTION-LOGS-<PROJECTID> CAN RECEIVE THE NOTIFICATION */
-        console.log(message);
+        console.log(payload);
         socket.to('action-logs-'+payload['project_id']).emit('action-logs-'+payload['project_id'], message);
     });
     /* NOTIFICATIONS LISTENER */
@@ -63,6 +63,12 @@ io.on('connection', (socket) => {
         /* FORWARD THE MESSAGE TO ROOM/CHANNEL/GROUP: NOTIFICATIONS-<RECEIVERUSERID> */
         /* ONLY USERS JOINED IN THE ROOM/CHANNEL/GROUP OF NOTIFICATIONS-<RECEIVERUSERID> CAN RECEIVE THE NOTIFICATION */
         // socket.to('notifications-'+payload['receiver_user_id']).emit('notifications-'+payload['receiver_user_id'], message);
+    });
+    /* DEACTIVATION LISTENER */
+    socket.on("deactivated", (message) => {
+        var payload = message['message'];
+        console.log(payload);
+        socket.to('deactivated-'+payload['user_id']).emit('deactivated-'+payload['user_id'], message);
     });
     /* WHEN DISCONNECTED */
     socket.on('disconnect', () => {
