@@ -45,24 +45,23 @@ io.on('connection', (socket) => {
         console.log(socket.id + " left " + room);
         socket.leave(room);
     });
-    /* ACTION LOGS LISTENER */
-    socket.on("action-logs", (message) => {
+    /* MESSAGES LISTENER */
+    socket.on("messages", (message) => {
         var payload = message['message'];
-        /* FORWARD THE MESSAGE TO ROOM/CHANNEL/GROUP: ACTION-LOGS-<PROJECTID> */
-        /* ONLY USERS JOINED IN THE ROOM/CHANNEL/GROUP OF ACTION-LOGS-<PROJECTID> CAN RECEIVE THE NOTIFICATION */
+        /* FORWARD THE MESSAGE TO ROOM/CHANNEL/GROUP: MESSAGES-<PROJECTID> */
+        /* ONLY USERS JOINED IN THE ROOM/CHANNEL/GROUP OF MESSAGES-<PROJECTID> CAN RECEIVE THE NOTIFICATION */
         console.log(payload);
-        socket.to('action-logs-'+payload['project_id']).emit('action-logs-'+payload['project_id'], message);
+        socket.to('messages-'+payload['project_id']).emit('messages-'+payload['project_id'], message);
     });
     /* NOTIFICATIONS LISTENER */
     socket.on("notifications", (message) => {
         var payload = message['message'];
         payload.forEach((data) => {
+            /* FORWARD THE MESSAGE TO ROOM/CHANNEL/GROUP: NOTIFICATIONS-<RECEIVERUSERID> */
+            /* ONLY USERS JOINED IN THE ROOM/CHANNEL/GROUP OF NOTIFICATIONS-<RECEIVERUSERID> CAN RECEIVE THE NOTIFICATION */
             console.log(data);
 	        socket.to('notifications-'+data['receiver_user_id']).emit('notifications-'+data['receiver_user_id'], data);
         });
-        /* FORWARD THE MESSAGE TO ROOM/CHANNEL/GROUP: NOTIFICATIONS-<RECEIVERUSERID> */
-        /* ONLY USERS JOINED IN THE ROOM/CHANNEL/GROUP OF NOTIFICATIONS-<RECEIVERUSERID> CAN RECEIVE THE NOTIFICATION */
-        // socket.to('notifications-'+payload['receiver_user_id']).emit('notifications-'+payload['receiver_user_id'], message);
     });
     /* DEACTIVATION LISTENER */
     socket.on("deactivated", (message) => {
